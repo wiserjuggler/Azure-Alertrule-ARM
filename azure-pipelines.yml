@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'alertrule-arm-connection'
+    subscriptionId: '76f2adfb-ff52-4f2b-963e-0de3335067a7'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'vaultec-monitoring'
+    location: 'East US 2'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://github.com/wiserjuggler/Azure-Alertrule-ARM/blob/main/template.json'
+    overrideParameters: '-projectName Azure-AlertRule-Powershell'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
+    deploymentOutputs: 'DeployPipelineOutputs'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
