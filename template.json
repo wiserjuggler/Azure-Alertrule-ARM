@@ -4,15 +4,19 @@
     "parameters": {
         "name": {
             "type": "String"
+			"value": "vaultec-workspace"
         },
         "location": {
             "type": "String"
+			"value": "eastus2"
         },
         "sku": {
             "type": "String"
+			"value": "pergb2018"
         },
         "tags": {
             "type": "Object"
+			"value": {}
         }
     },
     "resources": [
