@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "name": {
-            "value": "vaultec-workspace"
+            "value": "vaultec-oms"
         },
         "location": {
             "value": "eastus2"
