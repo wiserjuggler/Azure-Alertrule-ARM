@@ -1,72 +1,56 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "location": {
-            "value": "eastus2"
-        },
-        "storageAccountName": {
-            "value": "azurepipelinetest"
-        },
-        "accountType": {
-            "value": "Standard_GRS"
-        },
-        "kind": {
-            "value": "StorageV2"
-        },
-        "accessTier": {
-            "value": "Hot"
-        },
-        "minimumTlsVersion": {
-            "value": "TLS1_2"
-        },
-        "supportsHttpsTrafficOnly": {
-            "value": true
-        },
-        "allowBlobPublicAccess": {
-            "value": true
-        },
-        "allowSharedKeyAccess": {
-            "value": true
-        },
-        "allowCrossTenantReplication": {
-            "value": true
-        },
-        "defaultOAuth": {
-            "value": false
-        },
-        "networkAclsBypass": {
-            "value": "AzureServices"
-        },
-        "networkAclsDefaultAction": {
-            "value": "Allow"
-        },
-        "isContainerRestoreEnabled": {
-            "value": false
-        },
-        "isBlobSoftDeleteEnabled": {
-            "value": true
-        },
-        "blobSoftDeleteRetentionDays": {
-            "value": 7
-        },
-        "isContainerSoftDeleteEnabled": {
-            "value": true
-        },
-        "containerSoftDeleteRetentionDays": {
-            "value": 7
-        },
-        "changeFeed": {
-            "value": false
-        },
-        "isVersioningEnabled": {
-            "value": false
-        },
-        "isShareSoftDeleteEnabled": {
-            "value": true
-        },
-        "shareSoftDeleteRetentionDays": {
-            "value": 7
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "Specify the storage account name."
+      }
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Specify a location for the resources."
+      }
+    },
+    "storageSKU": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Standard_ZRS",
+        "Premium_LRS",
+        "Premium_ZRS",
+        "Standard_GZRS",
+        "Standard_RAGZRS"
+      ],
+      "metadata": {
+        "description": "Specify the storage account type."
+      }
     }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-04-01",
+      "name": "[parameters('storageAccountName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "[parameters('storageSKU')]"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "supportsHttpsTrafficOnly": true
+      }
+    }
+  ],
+  "outputs": {
+    "storageEndpoint": {
+      "type": "object",
+      "value": "[reference(parameters('storageAccountName')).primaryEndpoints]"
+    }
+  }
 }
