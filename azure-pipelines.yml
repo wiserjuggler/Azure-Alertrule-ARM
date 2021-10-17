@@ -20,6 +20,7 @@ steps:
     location: 'East US 2'
     templateLocation: 'URL of the file'
     csmFileLink: 'https://github.com/wiserjuggler/Azure-Alertrule-ARM/blob/main/template.json'
+    csmParametersFileLink: 'https://github.com/wiserjuggler/Azure-Alertrule-ARM/blob/main/parameters.json'
     overrideParameters: '-projectName Azure-AlertRule-Powershell'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
